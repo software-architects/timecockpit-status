@@ -59,9 +59,9 @@ status-website:
   # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
   cname: status.timecockpit.com
   # baseUrl: /your-repo-name
-  logoUrl: https://statictimecockpit.blob.core.windows.net/logos/timecockpit.svg
-  favicon: https://example.com/favicon.png
-  faviconSvg: https://example.com/logo.svg
+  logoUrl: https://status.timecockpit.com/timecockpit-logo
+  favicon: https://status.timecockpit.com/timecockpit-icon-192.png
+#  faviconSvg: https://example.com/logo.svg
   name: time cockpit
   hideNavTitle: true
   introTitle: "**time cockpit** - Effortless Time Tracking for Projects and Work Hours"
