@@ -6,16 +6,16 @@ sites:
   - name: Web Client
     url: https://web.timecockpit.com/version
     slug: web
-    type: globalping
-    location: Austria
+    # type: globalping
+    # location: Austria
     maxResponseTime: 15000
     expectedStatusCodes:
       - 200
   - name: API
     url: https://api.timecockpit.com/version
     slug: api
-    type: globalping
-    location: Austria
+    # type: globalping
+    # location: Austria
     maxResponseTime: 30000
     expectedStatusCodes:
       - 200
@@ -23,24 +23,24 @@ sites:
     url: https://auth.timecockpit.com/health
     # TODO review this vs. oidc
     slug: auth
-    type: globalping
-    location: Austria
+    # type: globalping
+    # location: Austria
     maxResponseTime: 5000
     expectedStatusCodes:
       - 200
   - name: Management Service
     url: https://management.timecockpit.com/health
     slug: mgmt
-    type: globalping
-    location: Austria
+    # type: globalping
+    # location: Austria
     maxResponseTime: 10000
     expectedStatusCodes:
       - 200
   - name: Website
     url: https://www.timecockpit.com
     slug: www
-    type: globalping
-    location: Austria
+    # type: globalping
+    # location: Austria
     maxResponseTime: 5000
     expectedStatusCodes:
       - 200
