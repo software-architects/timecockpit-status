@@ -69,10 +69,10 @@ status-website:
   navbar:
     - title: Status
       href: /
-    - title: Website
-      href: https://www.timecockpit.com
-    - title: Webclient
-      href: https://web.timecockpit.com
+    # - title: Website
+    #   href: https://www.timecockpit.com
+    # - title: Webclient
+    #   href: https://web.timecockpit.com
     - title: Docs
       href: https://docs.timecockpit.com
     - title: GitHub
