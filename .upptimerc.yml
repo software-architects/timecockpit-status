@@ -59,7 +59,7 @@ status-website:
   # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
   cname: status.timecockpit.com
   # baseUrl: /your-repo-name
-  logoUrl: https://status.timecockpit.com/timecockpit-logo
+  logoUrl: https://status.timecockpit.com/timecockpit-logo.svg
   favicon: https://status.timecockpit.com/timecockpit-icon-192.png
 #  faviconSvg: https://example.com/logo.svg
   name: time cockpit
