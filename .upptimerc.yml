@@ -6,19 +6,53 @@ sites:
   - name: Web Client
     url: https://web.timecockpit.com/version
     slug: web
+    type: globalping
+    location: Berlin
+    maxResponseTime: 15000
+    expectedStatusCodes:
+      - 200
   - name: API
     url: https://api.timecockpit.com/version
     slug: api
+    type: globalping
+    location: Berlin
+    maxResponseTime: 30000
+    expectedStatusCodes:
+      - 200
   - name: Identity Server
     url: https://auth.timecockpit.com/health
     # TODO review this vs. oidc
     slug: auth
+    type: globalping
+    location: Berlin
+    maxResponseTime: 5000
+    expectedStatusCodes:
+      - 200
   - name: Management Service
     url: https://management.timecockpit.com/health
     slug: mgmt
+    type: globalping
+    location: Berlin
+    maxResponseTime: 10000
+    expectedStatusCodes:
+      - 200
   - name: Website
     url: https://www.timecockpit.com
     slug: www
+    type: globalping
+    location: Berlin
+    maxResponseTime: 5000
+    expectedStatusCodes:
+      - 200
+
+workflowSchedule:
+#  graphs: "0 0 * * *"
+#  responseTime: "0 23 * * *"
+#  staticSite: "0 1 * * *"
+#  summary: "0 0 * * *"
+#  updateTemplate: "0 0 * * *"
+#  updates: "0 3 * * *"
+  uptime: "*/10 * * * *"
 
 status-website:
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
