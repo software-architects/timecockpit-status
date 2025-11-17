@@ -62,6 +62,7 @@ status-website:
   logoUrl: https://status.timecockpit.com/timecockpit-logo.svg
   favicon: https://status.timecockpit.com/timecockpit-icon-192.png
 #  faviconSvg: https://example.com/logo.svg
+  theme: dark
   name: time cockpit
   hideNavTitle: true
   introTitle: "**time cockpit** - Effortless Time Tracking for Projects and Work Hours"
