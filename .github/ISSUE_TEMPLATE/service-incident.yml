@@ -72,18 +72,15 @@ body:
     attributes:
       label: Resolution
       description: Complete before applying `status:resolved` and closing the issue.
-  - type: checkboxes
-    id: publication_checks
+  - type: markdown
     attributes:
-      label: Label and publication checks
-      description: Apply labels in the issue sidebar before publishing.
-      options:
-        - label: I applied exactly one `severity:*` label.
-          required: true
-        - label: I applied every affected `component:*` label (at least one).
-          required: true
-        - label: I verified that the title and body contain only customer-safe public information.
-          required: true
+      value: |
+        ### Before publishing
+
+        Verify that:
+        - Exactly one `severity:*` label is applied.
+        - Every affected `component:*` label (at least one) is applied.
+        - The title and body contain only customer-safe public information.
   - type: markdown
     attributes:
       value: |

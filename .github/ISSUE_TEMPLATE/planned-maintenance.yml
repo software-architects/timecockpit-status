@@ -83,18 +83,15 @@ body:
     attributes:
       label: Outcome
       description: Complete before applying `status:completed` and closing the issue; explain cancellation when applicable.
-  - type: checkboxes
-    id: publication_checks
+  - type: markdown
     attributes:
-      label: Label and publication checks
-      description: Apply labels in the issue sidebar before publishing.
-      options:
-        - label: I applied exactly one `impact:*` label.
-          required: true
-        - label: I applied every affected `component:*` label (at least one).
-          required: true
-        - label: I verified the announced window and all content are safe for public release.
-          required: true
+      value: |
+        ### Before publishing
+
+        Verify that:
+        - Exactly one `impact:*` label is applied.
+        - Every affected `component:*` label (at least one) is applied.
+        - The announced window and all content are safe for public release.
   - type: markdown
     attributes:
       value: |
