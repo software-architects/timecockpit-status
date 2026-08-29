@@ -1,118 +1,107 @@
-# Time Cockpit service incidents
+# Time Cockpit service status events
 
-This repository is the public incident record for [Time Cockpit](https://www.timecockpit.com/). Software architects gmbh uses it to publish customer-visible service incidents, planned maintenance, progress updates, and resolutions.
+This repository is the public communication record for [Time Cockpit](https://www.timecockpit.com/) service incidents and planned maintenance. The [Time Cockpit status page](https://status.timecockpit.com/) combines these updates with automated availability and response-time measurements.
 
 ## Quick links
 
 | Resource | Link |
 | --- | --- |
-| Current service health | [Time Cockpit Status](https://status.timecockpit.com/) |
-| Active incidents | [Open incident issues](https://github.com/software-architects/timecockpit-status/issues?q=is%3Aissue%20is%3Aopen%20label%3Aincident) |
-| Incident history | [All incident issues](https://github.com/software-architects/timecockpit-status/issues?q=is%3Aissue%20label%3Aincident) |
+| Current service health | [status.timecockpit.com](https://status.timecockpit.com/) |
+| Active status events | [Open status-event issues](https://github.com/software-architects/timecockpit-status/issues?q=is%3Aissue%20is%3Aopen%20label%3Astatus-event) |
+| Complete public history | [All status-event issues](https://github.com/software-architects/timecockpit-status/issues?q=is%3Aissue%20label%3Astatus-event) |
 | Product website | [timecockpit.com](https://www.timecockpit.com/) |
-| Time Cockpit web client | [web.timecockpit.com](https://web.timecockpit.com/) |
-| Product documentation | [docs.timecockpit.com](https://docs.timecockpit.com/) |
+| Web client | [web.timecockpit.com](https://web.timecockpit.com/) |
+| Documentation | [docs.timecockpit.com](https://docs.timecockpit.com/) |
 | Customer support | [support@timecockpit.com](mailto:support@timecockpit.com) |
 
-If the status page cannot be reached, use the active-incidents link above as the independent communication fallback.
+If the status page cannot be reached, the open-issues link is the independent communication fallback. This public repository is not a support queue or a place to disclose account details, tenant identifiers, personal data, credentials, or confidential information.
 
-## What this repository is for
+## Event types
 
-Issues carrying the `incident` label are official customer-facing communications about Time Cockpit service health. An open incident is active; a closed incident is resolved. Issues retain their updates after recovery so customers can review recent service history.
-
-The [status page](https://status.timecockpit.com/) combines these incident communications with automated availability and response-time measurements for the web client, web API, identity service, management API, and public website. Missing monitoring data is shown as unknown rather than healthy.
-
-This repository is not:
-
-- a customer-support queue;
-- a place to report product defects or request features;
-- the internal alerting or engineering work-tracking system; or
-- a source of contractual SLA or service-credit calculations.
-
-For help with your account or an issue that is not already described here, contact [Time Cockpit support](mailto:support@timecockpit.com). Do not publish account details, personal data, credentials, tenant identifiers, or confidential business information in a GitHub issue or comment.
-
-The absence of an open incident does not by itself prove that every service is healthy. Check the status page for the latest automated measurements.
-
-## Reading an incident
-
-Incident titles use `[Incident] <customer-visible impact>`, for example `[Incident] Sign-in unavailable for some users`.
-
-The issue body is the current canonical summary. Times are written in UTC using ISO 8601 (`YYYY-MM-DDTHH:MM:SSZ`) and your browser may display GitHub's own timestamps in your local time zone.
-
-| Field | Meaning |
-| --- | --- |
-| Incident began | Earliest evidence-backed start of customer impact. |
-| Incident ended | `Ongoing` while active, then the verified recovery time. |
-| Last public update | Time of the latest material customer-facing update. |
-| Next public update by | The next update commitment while the incident is active. |
-| Customer impact | Observable symptoms, known scope, and unaffected functionality. |
-| Current update | What is known and what customers should expect now. |
-| Workaround | A safe action customers can take, when one exists. |
-| Public timeline | Chronological customer-relevant events. |
-| Resolution | How service was restored and any customer-relevant follow-up. |
-
-Material updates are kept in the issue body and may also be posted as comments so subscribers receive notifications. Internal diagnostics and remediation tasks remain in private operational systems.
-
-## Labels
-
-Labels are the authoritative machine-readable metadata used by the status page. Every incident has the `incident` label, exactly one `status:*` label, exactly one `severity:*` label, and at least one `component:*` label.
-
-### Lifecycle status
+Every published record carries the `status-event` ingestion label and exactly one type label.
 
 | Label | Meaning |
 | --- | --- |
-| `status:investigating` | Impact, scope, or cause is still being assessed. |
-| `status:identified` | Cause or scope is understood and remediation is in progress. |
-| `status:monitoring` | A mitigation is in place and recovery is being verified. |
-| `status:resolved` | Recovery is verified and the public record is complete. |
+| `type:incident` | Unplanned customer-visible impact being investigated and remediated. |
+| `type:maintenance` | Scheduled work announced in advance with a defined maintenance window. |
 
-Lifecycle labels are replaced as an incident advances; they are not accumulated.
+### Service incidents
 
-### Severity
+Use the [Service incident form](https://github.com/software-architects/timecockpit-status/issues/new?template=service-incident.yml). Incident lifecycle labels are replaced—not accumulated—as work advances:
 
-| Label | Meaning | Effect on the displayed overall status |
+`status:investigating` → `status:identified` → `status:monitoring` → `status:resolved`
+
+Every incident also has exactly one severity label:
+
+| Label | Customer impact | Minimum displayed state |
 | --- | --- | --- |
-| `severity:maintenance` | Planned maintenance without an unplanned service failure. | Does not raise measured service health. |
-| `severity:minor` | Limited degradation or a practical workaround exists. | At least degraded. |
-| `severity:major` | Material partial outage or a core workflow is affected. | At least partial outage. |
-| `severity:critical` | Widespread or complete outage of critical functionality. | Major outage. |
+| `severity:minor` | Limited degradation or a practical workaround exists. | Degraded |
+| `severity:major` | Material partial outage or a core workflow is affected. | Partial outage |
+| `severity:critical` | Widespread or complete outage of critical functionality. | Major outage |
 
-Severity communicates customer impact, not engineering effort or root-cause complexity. If planned maintenance causes unplanned impact, `severity:maintenance` is replaced with the appropriate impact severity. An incident can raise the status displayed from monitoring, but it never hides a worse measured state.
+Incident severity can raise the status derived from monitoring, but never hide a worse measured state.
 
-### Affected components
+### Planned maintenance
+
+Use the [Planned maintenance form](https://github.com/software-architects/timecockpit-status/issues/new?template=planned-maintenance.yml). Maintenance lifecycle labels are:
+
+`status:scheduled` → `status:in-progress` → `status:completed`
+
+Use `status:cancelled` when announced work will not proceed. Every maintenance event also has exactly one expected-impact label:
+
+| Label | Meaning |
+| --- | --- |
+| `impact:none` | No customer-visible interruption is expected. |
+| `impact:degraded` | Slower responses or limited degradation may occur. |
+| `impact:intermittent` | Brief or intermittent interruptions are expected. |
+| `impact:unavailable` | The affected functionality is expected to be unavailable during some or all of the window. |
+
+Planned maintenance never changes measured service health by itself. If unexpected impact occurs, authors open a separate incident and link both records.
+
+## Affected components
+
+Apply at least one component label; apply all that are affected.
 
 | Label | Component |
 | --- | --- |
 | `component:web-client` | Browser application and public sign-in entry point. |
-| `component:web-api` | Core application API used by the web client and integrations. |
+| `component:web-api` | Core application API. |
 | `component:identity` | Authentication and token issuance. |
-| `component:management-api` | Account and subscription management services. |
+| `component:management-api` | Account and subscription management. |
 | `component:website` | Public Time Cockpit website. |
 
-More than one component label can be present when an incident crosses service boundaries.
+## Reading and receiving updates
 
-## Receiving notifications
+Structured UTC fields in the issue body provide the event window, last update, impact, current update, customer action or workaround, public timeline, and outcome. The issue body is the current canonical summary. Material changes may also be posted as comments so subscribers are notified.
 
-To receive updates for all incidents, sign in to GitHub, open this repository's **Watch** menu, choose **Custom**, and select **Issues**. To follow only one incident, open that issue and use its **Subscribe** control. Delivery through GitHub, email, or mobile depends on your [GitHub notification settings](https://github.com/settings/notifications).
+To receive all updates, sign in to GitHub, open this repository's **Watch** menu, choose **Custom**, and select **Issues**. To follow one event, use **Subscribe** on that issue. Notification delivery depends on your [GitHub notification settings](https://github.com/settings/notifications).
 
-GitHub notification behavior is controlled by GitHub and your account settings. The [status page](https://status.timecockpit.com/) remains the best place to check current service health directly.
+## Authorized author checklist
 
-## Incident-author workflow
+1. Select the form matching the event type; do not describe planned work as an incident.
+2. Apply every required type, lifecycle, severity or expected-impact, and component label.
+3. Use UTC ISO 8601 timestamps (`YYYY-MM-DDTHH:MM:SSZ`).
+4. Publish only customer-observable impact, safe workarounds/actions, and realistic update commitments.
+5. Keep the structured fields and public timeline synchronized and comment when subscribers should be notified.
+6. Replace lifecycle labels as the event advances; close only after recovery, completion, or cancellation is documented.
+7. Open a separate linked incident if maintenance produces unexpected customer impact.
 
-The incident form and label controls are intended for authorized Time Cockpit incident authors. All published content is public.
+## Required repository labels
 
-1. Confirm customer impact through internal monitoring; do not wait for the public status publisher.
-2. Open the [**Service incident** form](https://github.com/software-architects/timecockpit-status/issues/new?template=service-incident.yml). It applies `incident` and `status:investigating` automatically.
-3. Apply exactly one severity label and every affected component label.
-4. Complete the UTC metadata and publish only customer-safe impact, scope, workaround, and next-update time.
-5. For each material update, synchronize **Last public update**, **Next public update**, **Current update**, and **Public timeline**. Post a corresponding comment when subscriber notification is required.
-6. Replace the lifecycle label as the incident advances from investigating to identified to monitoring.
-7. After verified recovery, set **Incident ended**, complete **Resolution**, apply `status:resolved`, close the issue, and verify that the status page reflects the resolution.
+Create these labels before using the forms; GitHub does not create missing labels referenced by an issue form.
 
-Before publishing, verify that the issue contains no tenant names, personal data, secrets, traces, parameterized customer URLs, internal-only infrastructure details, or unsupported estimates.
+| Group | Labels | Suggested color |
+| --- | --- | --- |
+| Ingestion | `status-event` | `#B60205` |
+| Type | `type:incident`, `type:maintenance` | `#5319E7` |
+| Incident lifecycle | `status:investigating`, `status:identified`, `status:monitoring`, `status:resolved` | orange/yellow/blue/green |
+| Maintenance lifecycle | `status:scheduled`, `status:in-progress`, `status:completed`, `status:cancelled` | blue/yellow/green/gray |
+| Severity | `severity:minor`, `severity:major`, `severity:critical` | yellow/orange/red |
+| Expected impact | `impact:none`, `impact:degraded`, `impact:intermittent`, `impact:unavailable` | green/yellow/orange/red |
+| Components | `component:web-client`, `component:web-api`, `component:identity`, `component:management-api`, `component:website` | `#25A4D5` |
+
+Legacy issues using `incident` or `severity:maintenance` remain readable by the status publisher, but new issues must use the contract above.
 
 ## Privacy and support
 
-This is a public repository. If you need to share customer-specific information, contact [support@timecockpit.com](mailto:support@timecockpit.com) instead of posting it here. Additional contact options are available on the [Time Cockpit contact page](https://www.timecockpit.com/company/contact/).
-
-Time Cockpit is a product of [software architects gmbh](https://www.timecockpit.com/about-us/).
+For account-specific help or confidential information, contact [support@timecockpit.com](mailto:support@timecockpit.com) or use the [Time Cockpit contact page](https://www.timecockpit.com/company/contact/). Time Cockpit is a product of [software architects gmbh](https://www.timecockpit.com/about-us/).

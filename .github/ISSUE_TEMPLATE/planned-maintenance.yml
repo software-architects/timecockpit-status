@@ -1,0 +1,101 @@
+name: Planned maintenance
+description: Announce and update scheduled Time Cockpit maintenance
+title: "[Maintenance] <affected service and change>"
+labels: ["status-event", "type:maintenance", "status:scheduled"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Publish it early enough for customers to plan. Include customer-safe facts only—no tenant names, personal data, secrets, traces, or internal infrastructure details.
+
+        Use UTC ISO 8601 timestamps (`YYYY-MM-DDTHH:MM:SSZ`). Labels are authoritative for event type, lifecycle, expected impact, and affected components. Planned maintenance does not change measured service health by itself.
+  - type: input
+    id: scheduled_start_at
+    attributes:
+      label: Scheduled start (UTC)
+      placeholder: "2026-09-01T20:00:00Z"
+    validations:
+      required: true
+  - type: input
+    id: scheduled_end_at
+    attributes:
+      label: Scheduled end (UTC)
+      description: End of the announced maintenance window.
+      placeholder: "2026-09-01T21:00:00Z"
+    validations:
+      required: true
+  - type: input
+    id: actual_start_at
+    attributes:
+      label: Actual start (UTC)
+      description: Keep `Not started` until work begins, then replace it with the actual start time.
+      value: Not started
+    validations:
+      required: true
+  - type: input
+    id: actual_completion_at
+    attributes:
+      label: Actual completion (UTC)
+      description: Keep `Not completed` until work is verified complete or cancelled.
+      value: Not completed
+    validations:
+      required: true
+  - type: input
+    id: last_updated_at
+    attributes:
+      label: Last public update (UTC)
+      description: Update whenever the schedule, scope, or public update changes.
+      placeholder: "2026-08-29T12:00:00Z"
+    validations:
+      required: true
+  - type: textarea
+    id: expected_impact
+    attributes:
+      label: Expected customer impact
+      description: Explain affected workflows, expected interruptions, and unaffected functionality.
+    validations:
+      required: true
+  - type: textarea
+    id: current_update
+    attributes:
+      label: Current update
+      description: State whether maintenance is scheduled, in progress, completed, or cancelled.
+    validations:
+      required: true
+  - type: textarea
+    id: customer_action
+    attributes:
+      label: Customer action
+      description: Explain any preparation or workaround, or write `No action required`.
+    validations:
+      required: true
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Public timeline
+      description: Append schedule changes and customer-relevant events chronologically.
+      value: |
+        - YYYY-MM-DDTHH:MM:SSZ — Maintenance announced.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: Complete before applying `status:completed` and closing the issue; explain cancellation when applicable.
+  - type: checkboxes
+    id: publication_checks
+    attributes:
+      label: Label and publication checks
+      description: Apply labels in the issue sidebar before publishing.
+      options:
+        - label: I applied exactly one `impact:*` label.
+          required: true
+        - label: I applied every affected `component:*` label (at least one).
+          required: true
+        - label: I verified the announced window and all content are safe for public release.
+          required: true
+  - type: markdown
+    attributes:
+      value: |
+        Replace the lifecycle label as work advances: `status:scheduled` → `status:in-progress` → `status:completed`. Use `status:cancelled` if the work will not proceed. On completion, set **Actual completion**, complete **Outcome**, close the issue, and post a public comment when subscribers should be notified. If unexpected customer impact occurs, open and link a separate service incident.

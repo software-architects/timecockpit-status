@@ -1,19 +1,19 @@
 name: Service incident
-description: Publish a customer-visible Time Cockpit service incident
+description: Publish an unplanned customer-visible Time Cockpit service incident
 title: "[Incident] <customer-visible impact>"
-labels: ["incident", "status:investigating"]
+labels: ["status-event", "type:incident", "status:investigating"]
 body:
   - type: markdown
     attributes:
       value: |
-        This issue is public. Include customer-safe facts only—no tenant names, personal data, secrets, traces, or internal-only infrastructure details.
+        This issue is public. Include customer-safe facts only—no tenant names, personal data, secrets, traces, or internal infrastructure details.
 
-        Replace the title placeholder with a concise symptom, for example: `[Incident] Sign-in unavailable for some users`. Use UTC ISO 8601 timestamps (`YYYY-MM-DDTHH:MM:SSZ`) throughout. Labels—not fields in this form—are authoritative for status, severity, and affected components. See the [incident repository guide](https://github.com/software-architects/timecockpit-status#readme) for the complete publication contract.
+        Replace the title placeholder with a concise symptom. Use UTC ISO 8601 timestamps (`YYYY-MM-DDTHH:MM:SSZ`). Labels are authoritative for event type, lifecycle, severity, and affected components.
   - type: input
     id: began_at
     attributes:
       label: Incident began (UTC)
-      description: Earliest confirmed customer impact. If detection was later, use the best evidence-backed estimate.
+      description: Earliest evidence-backed start of customer impact.
       placeholder: "2026-08-29T14:30:00Z"
     validations:
       required: true
@@ -21,7 +21,7 @@ body:
     id: ended_at
     attributes:
       label: Incident ended (UTC)
-      description: Keep `Ongoing` until recovery is verified; replace it with the actual end time before resolving.
+      description: Keep `Ongoing` until recovery is verified, then replace it with the actual end time.
       value: Ongoing
     validations:
       required: true
@@ -29,7 +29,7 @@ body:
     id: last_updated_at
     attributes:
       label: Last public update (UTC)
-      description: Update this value whenever the customer-visible summary or timeline changes.
+      description: Update whenever the public summary or timeline materially changes.
       placeholder: "2026-08-29T14:45:00Z"
     validations:
       required: true
@@ -37,35 +37,32 @@ body:
     id: next_update_at
     attributes:
       label: Next public update by (UTC)
-      description: Optional when resolved. Set a realistic commitment while the incident is active.
+      description: Optional when resolved; required operationally while the incident is active.
       placeholder: "2026-08-29T15:15:00Z"
   - type: textarea
     id: impact
     attributes:
       label: Customer impact
-      description: Describe what users observe, the known scope, and unaffected functionality. Avoid unsupported estimates.
-      placeholder: "Some users cannot sign in to the web client. Existing API sessions continue to work."
+      description: Describe observable symptoms, known scope, and unaffected functionality.
     validations:
       required: true
   - type: textarea
     id: current_update
     attributes:
       label: Current update
-      description: State what is known and what customers should expect now. Keep internal diagnosis in private operational systems.
-      placeholder: "We have identified the affected authentication path and are applying a mitigation."
+      description: State what is known and what customers should expect now.
     validations:
       required: true
   - type: textarea
     id: workaround
     attributes:
       label: Workaround
-      description: Optional customer-safe workaround. Write `None known` when that fact is useful.
-      placeholder: "Users with an existing session can continue working."
+      description: Provide a safe workaround or write `None known` when useful.
   - type: textarea
     id: timeline
     attributes:
       label: Public timeline
-      description: Append customer-relevant events in chronological order and keep the last-update timestamp above in sync.
+      description: Append customer-relevant events in chronological order.
       value: |
         - YYYY-MM-DDTHH:MM:SSZ — Initial customer impact detected; investigation started.
     validations:
@@ -74,15 +71,14 @@ body:
     id: resolution
     attributes:
       label: Resolution
-      description: Complete before applying `status:resolved`. Summarize restoration and customer-relevant follow-up without exposing internal details.
-      placeholder: "Service was restored after…"
+      description: Complete before applying `status:resolved` and closing the issue.
   - type: checkboxes
-    id: label_contract
+    id: publication_checks
     attributes:
       label: Label and publication checks
-      description: The template automatically requests `incident` and `status:investigating`. Apply labels in the issue sidebar before publishing.
+      description: Apply labels in the issue sidebar before publishing.
       options:
-        - label: I applied exactly one `status:*` label and exactly one `severity:*` label.
+        - label: I applied exactly one `severity:*` label.
           required: true
         - label: I applied every affected `component:*` label (at least one).
           required: true
@@ -91,4 +87,4 @@ body:
   - type: markdown
     attributes:
       value: |
-        During the incident, edit **Last public update**, **Next public update**, **Current update**, and **Public timeline** together. Post a corresponding public comment when subscribers should be notified. On recovery, set **Incident ended**, complete **Resolution**, replace the lifecycle label with `status:resolved`, and close the issue.
+        Advance the lifecycle by replacing the `status:*` label: `investigating` → `identified` → `monitoring` → `resolved`. On recovery, set **Incident ended**, complete **Resolution**, apply `status:resolved`, and close the issue. Post a public comment when subscribers should be notified.

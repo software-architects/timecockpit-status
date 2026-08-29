@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Time Cockpit service status
+    url: https://status.timecockpit.com/
+    about: Check current service health and published status events.
+  - name: Time Cockpit customer support
+    url: https://www.timecockpit.com/company/contact/
+    about: Contact support for account-specific or confidential questions.
