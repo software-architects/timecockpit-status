@@ -111,29 +111,6 @@ The incident form and label controls are intended for authorized Time Cockpit in
 
 Before publishing, verify that the issue contains no tenant names, personal data, secrets, traces, parameterized customer URLs, internal-only infrastructure details, or unsupported estimates.
 
-## Repository setup
-
-Create the following labels before the incident form is used. GitHub does not create missing labels referenced by an issue form, so a missing label would not be applied automatically.
-
-| Label | Suggested color |
-| --- | --- |
-| `incident` | `#B60205` |
-| `status:investigating` | `#D93F0B` |
-| `status:identified` | `#FBCA04` |
-| `status:monitoring` | `#1D76DB` |
-| `status:resolved` | `#0E8A16` |
-| `severity:maintenance` | `#5319E7` |
-| `severity:minor` | `#FBCA04` |
-| `severity:major` | `#D93F0B` |
-| `severity:critical` | `#B60205` |
-| `component:web-client` | `#25A4D5` |
-| `component:web-api` | `#25A4D5` |
-| `component:identity` | `#25A4D5` |
-| `component:management-api` | `#25A4D5` |
-| `component:website` | `#25A4D5` |
-
-The issue repository is intentionally separate from the status-page hosting and monitoring infrastructure. This provides a public communication path even when the status page or its data pipeline is unavailable.
-
 ## Privacy and support
 
 This is a public repository. If you need to share customer-specific information, contact [support@timecockpit.com](mailto:support@timecockpit.com) instead of posting it here. Additional contact options are available on the [Time Cockpit contact page](https://www.timecockpit.com/company/contact/).
